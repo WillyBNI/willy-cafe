@@ -11,6 +11,7 @@ type WindowProps = {
   className?: string
   minWidth?: number
   minHeight?: number
+  onClose?: () => void
 }
 
 export default function Window({
@@ -22,6 +23,7 @@ export default function Window({
   className,
   minWidth,
   minHeight,
+  onClose
 }: WindowProps) {
   const sizeStyle: CSSProperties = {}
 
@@ -58,7 +60,7 @@ return (
         <div className="title-bar-controls">
           <button aria-label="Minimize" />
           <button aria-label="Maximize" />
-          <button aria-label="Close" />
+          <button aria-label="Close" onClick={onClose} />
         </div>
       </div>
 
