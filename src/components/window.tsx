@@ -1,50 +1,46 @@
 import type { ReactNode, CSSProperties } from 'react'
 import { Rnd } from 'react-rnd'
 import '../styles/window.css'
+import type { WindowData } from '../components/windowTypes'
 
 type WindowProps = {
-  title: string
+  window: WindowData
   children: ReactNode
-  width?: number | string
-  height?: number | string
   style?: CSSProperties
   className?: string
-  minWidth?: number
-  minHeight?: number
+
   onClose?: () => void
+  toggleMaximize?: () => void
 }
 
 export default function Window({
-  title,
+  window,
   children,
-  width,
-  height,
   style,
   className,
-  minWidth,
-  minHeight,
-  onClose
+  onClose,
+  toggleMaximize
 }: WindowProps) {
   const sizeStyle: CSSProperties = {}
 
-  if (width !== undefined) {
-    sizeStyle.width = typeof width === 'number' ? `${width}px` : width
+  if (window.width !== undefined) {
+    sizeStyle.width = typeof window.width === 'number' ? `${window.width}px` : window.width
   }
-  if (height !== undefined) {
-    sizeStyle.height = typeof height === 'number' ? `${height}px` : height
+  if (window.height !== undefined) {
+    sizeStyle.height = typeof window.height === 'number' ? `${window.height}px` : window.height
   }
 
 return (
   <Rnd
     dragHandleClassName="title-bar"
-    minWidth={minWidth ?? 250}
-    minHeight={minHeight ?? 150}
-    default={{
-      x: 100,
-      y: 100,
-      width: 400,
-      height: 300,
-    }}
+    minWidth={window.minWidth}
+    minHeight={window.minHeight}
+      default={{
+        x: window.x,
+        y: window.y,
+        width: window.width,
+        height: window.height,
+      }}
   >
     <div
       className={`window ${className ?? ''}`}
@@ -55,11 +51,12 @@ return (
       }}
     >
       <div className="title-bar">
-        <div className="title-bar-text">{title}</div>
-
+        <div className="title-bar-text">
+          {window.title}
+        </div>
         <div className="title-bar-controls">
           <button aria-label="Minimize" />
-          <button aria-label="Maximize" />
+          <button aria-label="Maximize" onClick={toggleMaximize} />
           <button aria-label="Close" onClick={onClose} />
         </div>
       </div>
