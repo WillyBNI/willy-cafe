@@ -1,7 +1,7 @@
 import type { ReactNode, CSSProperties } from 'react'
 import { Rnd } from 'react-rnd'
 import '../styles/window.css'
-import type { WindowData } from '../components/windowTypes'
+import type { WindowData } from '../types/windowTypes'
 
 type WindowProps = {
   window: WindowData
