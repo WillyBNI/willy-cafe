@@ -11,36 +11,53 @@ type WindowProps = {
 
   onClose?: () => void
   toggleMaximize?: () => void
+  onMove?: (x: number, y: number) => void
+  onResize?: (
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ) => void
 }
 
-export default function Window({
+export default function WindowFrame({
   window,
   children,
   style,
   className,
   onClose,
-  toggleMaximize
+  toggleMaximize,
+  onMove,
+  onResize
 }: WindowProps) {
-  const sizeStyle: CSSProperties = {}
-
-  if (window.width !== undefined) {
-    sizeStyle.width = typeof window.width === 'number' ? `${window.width}px` : window.width
-  }
-  if (window.height !== undefined) {
-    sizeStyle.height = typeof window.height === 'number' ? `${window.height}px` : window.height
-  }
 
 return (
   <Rnd
     dragHandleClassName="title-bar"
     minWidth={window.minWidth}
     minHeight={window.minHeight}
-      default={{
-        x: window.x,
-        y: window.y,
+    size={{
         width: window.width,
         height: window.height,
-      }}
+    }}
+
+    position={{
+        x: window.x,
+        y: window.y,
+    }}
+    disableDragging={window.isMaximized}
+    enableResizing={!window.isMaximized}
+    onDragStop={(e, d) => {
+    onMove?.(d.x, d.y)
+}}
+    onResizeStop={(e, direction, ref, delta, position) => {
+      onResize?.(
+        position.x,
+        position.y,
+        ref.offsetWidth,
+        ref.offsetHeight
+      )
+    }}
   >
     <div
       className={`window ${className ?? ''}`}
