@@ -97,7 +97,6 @@ const toggleMaximize  = (id: string) => {
           onMove={(x, y) =>
             moveWindow(window.id, x, y)
           }
-
           onResize={(x, y, width, height) =>
             resizeWindow(
                 window.id,
@@ -108,7 +107,6 @@ const toggleMaximize  = (id: string) => {
               )
           }
         >
-          <p>some stuff</p>
         </WindowFrame>
       ))}
     </body>

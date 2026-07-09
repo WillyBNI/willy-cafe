@@ -1,3 +1,5 @@
+import type { ComponentType } from "react";
+
 export interface WindowData {
     id: string;
 
@@ -24,4 +26,6 @@ export interface WindowData {
     };
 
     zIndex: number;
+
+    content?: ComponentType;
 }

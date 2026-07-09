@@ -1,11 +1,10 @@
-import type { ReactNode, CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { Rnd } from 'react-rnd'
 import '../styles/window.css'
 import type { WindowData } from '../types/windowTypes'
 
 type WindowProps = {
   window: WindowData
-  children: ReactNode
   style?: CSSProperties
   className?: string
 
@@ -22,7 +21,6 @@ type WindowProps = {
 
 export default function WindowFrame({
   window,
-  children,
   style,
   className,
   onClose,
@@ -30,6 +28,7 @@ export default function WindowFrame({
   onMove,
   onResize
 }: WindowProps) {
+  const Content = window.content;
 
 return (
   <Rnd
@@ -79,7 +78,7 @@ return (
       </div>
 
       <div className="window-body">
-        {children}
+        {Content && <Content />}
       </div>
     </div>
   </Rnd>
